@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -14,4 +14,16 @@
     
 <a href="dashboard.html">ログイン</a>
 </body>
-</html>
+</html> -->
+{% extends "base.html" %}
+{% block title %}
+    ログイン
+    {% endblock %}
+{% block content %}
+<label>メールアドレス</label><br>
+<input type="email" name="email-address"><br>
+<label>パスワード</label><br>
+<input type="password" name="passward"><br>
+
+<a href="dashboard.html">ログイン</a>
+{% endblock %} 

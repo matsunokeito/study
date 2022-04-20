@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -9,4 +9,11 @@
 <body>
   <input type="button" onclick="location.href='userlist.html'"value="ユーザー一覧">
 </body>
-</html>
+</html> -->
+{% extends "base.html" %}
+{% block title %}
+    ダッシュボード
+    {% endblock %}
+{% block content %}
+<input type="button" onclick="location.href='userlist.html'"value="ユーザー一覧">
+{% endblock %}

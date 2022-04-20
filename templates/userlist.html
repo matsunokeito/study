@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -27,4 +27,28 @@
     </table>
   
 </body>
-</html>
+</html> -->
+{% extends "base.html" %}
+{% block title %}
+    ユーザー一覧
+    {% endblock %}
+{% block content %}
+<input type="button" onclick="location.href='create.html'"value="新規登録"> 
+    <table border="1">
+     
+      <tr>
+         <th>名前</th>
+         <th>資格</th>
+         <th></th>
+      </tr>
+      <tr>
+        <td>田中</td>
+        <td>基本情報</td>
+        <td>
+            <a style="width:100%; height:100%; display:block;"
+                href="detail.html">詳細
+            </a>
+        </td>
+     </tr>
+    </table>
+{% endblock %}
