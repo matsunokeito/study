@@ -86,20 +86,59 @@
     ユーザー登録
     {% endblock %}
 {% block content %}
-<form action="/regist" method="post">
+<form action="/regist" method="POST">
   <label>名前</label><br>
   <input type="text" name="first-name">
+  {% with errors = get_flashed_messages(category_filter=["ng_name"]) %}
+  {% if errors %}
+    {% for error in errors %}
+      <p><span>{{error}}</span></p>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
   <p>性別</p>
-  <input id="radio-a" type="radio" name="gender" value="男性" checked><label for="radio-a">男性</label><br>
-  <input id="radio-b" type="radio" name="gender" value="女性" checked><label for="radio-b">女性</label><br>
+  <!-- <input type="radio" name="gender" value="" checked style="display:none"> -->
+  <input id="radio-a" type="radio" name="gender" value="0" ><label for="radio-a">男性</label><br>
+  <input id="radio-b" type="radio" name="gender" value="1" ><label for="radio-b">女性</label><br>
+  
+  {% with errors = get_flashed_messages(category_filter=["ng_gender"]) %}
+  {% if errors %}
+    {% for error in errors %}
+      <p><span>{{error}}</span></p>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
   <label>生年月日</label><br>
   <input type="date" name="birthday" value=""><br>
   <label>パスワード</label><br>
-  <input type="password" name="passward"><br>
+  <input type="password" name="password"><br>
+  {% with errors = get_flashed_messages(category_filter=["ng_password"]) %}
+  {% if errors %}
+    {% for error in errors %}
+      <p><span>{{error}}</span></p>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
   <label>メールアドレス</label><br>
-  <input type="email" name="email-address"><br>
+  <input type="text" name="email-address"><br>
+  {% with errors = get_flashed_messages(category_filter=["ng_email"]) %}
+  {% if errors %}
+    {% for error in errors %}
+      <p><span>{{error}}</span></p>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
   <label>郵便番号</label><br>
   <input type="text" name="post-code"><br>
+  {% with errors = get_flashed_messages(category_filter=["ng_post"]) %}
+  {% if errors %}
+    {% for error in errors %}
+      <p><span>{{error}}</span></p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
   <select name="pref_name">
       <!-- <option value="" selected>都道府県</option>
       <option value="北海道">北海道</option>
@@ -149,16 +188,31 @@
       <option value="宮崎県">宮崎県</option>
       <option value="鹿児島県">鹿児島県</option>
       <option value="沖縄県">沖縄県</option> -->
+      <option value="0">選択してください</option>
       {%for todoufuken in todoufuken_list%}
       <option value="{{todoufuken['ken_code']}}">{{todoufuken['ken_name']}}</option>
       {%endfor%}
       </select><br>
-      
+      {% with errors = get_flashed_messages(category_filter=["ng_todoufuken"]) %}
+      {% if errors %}
+        {% for error in errors %}
+          <p><span>{{error}}</span></p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
   <label>住所</label><br>
   <input type="text" name="address"><br>
+  {% with errors = get_flashed_messages(category_filter=["ng_address"]) %}    
+  {% if errors %}
+  {% for error in errors %}
+    <p><span>{{error}}</span></p>
+  {% endfor %}
+{% endif %}
+{% endwith %}
   <p>資格</p>
   {%for shikaku in shikaku_list%}
-  <input id="check" type="checkbox" name="skill" value="{{shikaku['shikaku_code']}}"><label for="check">{{shikaku['shikaku_name']}}</label><br>
+  <input id="check" type="checkbox" name="shikaku" value="{{shikaku['shikaku_code']}}"><label for="check">
+    {{shikaku['shikaku_name']}}</label><br>
   {%endfor%}
   <input type="submit" value="登録"> 
 </form>

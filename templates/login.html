@@ -15,15 +15,30 @@
 <a href="dashboard.html">ログイン</a>
 </body>
 </html> -->
-{% extends "base.html" %}
-{% block title %}
-    ログイン
-    {% endblock %}
-{% block content %}
-<label>メールアドレス</label><br>
-<input type="email" name="email-address"><br>
-<label>パスワード</label><br>
-<input type="password" name="passward"><br>
+<!DOCTYPE html>
+<html lang="ja">
 
-<a href="dashboard.html">ログイン</a>
-{% endblock %} 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン</title>
+</head>
+<form action="/login" method="POST">
+  <label>メールアドレス</label><br>
+  <input type="email" name="email-address"><br>
+  {% with errors = get_flashed_messages(category_filter=["ng_email"]) %}
+  {% if errors %}
+  <p><span>{{errors[0]}}</span></p>
+  {% endif %}
+  {% endwith %}
+  <label>パスワード</label><br>
+  <input type="password" name="password"><br>
+  {% with errors = get_flashed_messages(category_filter=["ng_password"]) %}
+  {% if errors %}
+  <p><span>{{errors[0]}}</span></p>
+  {% endif %}
+  {% endwith %}
+
+  <input type="submit" value="ログイン">
+</form>

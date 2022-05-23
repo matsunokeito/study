@@ -61,47 +61,16 @@
 {% block content %}
 <section>
   <h2>登録内容</h2>
-  <form action=""method="post">
-      <div>
-          <label for="name">名前</label>
-          <p>田中　太郎</p>
-      </div>
-      <div>
-  <label for="gender">性別</label>
-  <p>男性</p>
-</div>
-<div>
-  <label>生年月日</label>
-  <p>1998年5月1日</p>
-</div>
-<div>
-  <label>パスワード</label>
-  <p>tanaka0501</p>
-</div>
-<div>
-  <label>メールアドレス</label>
-  <p>tanaka1998@gmail.com</p>
-</div>
-<div>
-  <label>郵便番号</label>
-  <p>〒330-9301</p>
-</div>
-      <div>
-          <label>都道府県 </label>
-          <p>埼玉県</p>                 
-      </div>
-      <div>
-          <label>住所</label>
-          <p>埼玉県さいたま市浦和区高砂3丁目15-1</p>     
-      </div>
-      <div> 
-          <label> 資格</label>
-      <p>基本情報</p>    
-      </div> 
-      
-      
-  </form>
-</section>
-<input type="button" onclick="location.href='useredit.html'"value="編集">
-<input type="button" onclick="location.href="value="削除">
+<form action=""method="post">  
+  <table border="1">
+    <tr><th>名前</th><td>{{user['name']}}</td></tr>
+    <tr><th>性別</th><td>{{user['gender']}}</td></tr>
+    <tr><th>メールアドレス</th><td>{{user['mail']}}</td></tr>
+    <tr><th>郵便番号</th><td>{{user['yubin']}}</td></tr>
+    <tr><th>都道府県</th><td>{{user['ken_name']}}</td></tr>
+    <tr><th>住所</th><td>{{user['jyusyo']}}</td></tr>
+    <tr><th>資格</th><td>{{shikaku_name}}</td></tr>
+</table>
+<input type="button" onclick="location.href='/useredit/{{user.user_id}}'"value="編集">
+<input type="button" onclick="location.href='/delete/{{user.user_id}}'"value="削除">
 {% endblock %}
