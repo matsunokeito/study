@@ -24,21 +24,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ログイン</title>
 </head>
-<form action="/login" method="POST">
-  <label>メールアドレス</label><br>
-  <input type="email" name="email-address"><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_email"]) %}
-  {% if errors %}
-  <p><span>{{errors[0]}}</span></p>
-  {% endif %}
-  {% endwith %}
-  <label>パスワード</label><br>
-  <input type="password" name="password"><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_password"]) %}
-  {% if errors %}
-  <p><span>{{errors[0]}}</span></p>
-  {% endif %}
-  {% endwith %}
 
-  <input type="submit" value="ログイン">
-</form>
+<body>
+  <div id="error"></div>
+  <form id="login" onsubmit="return pushbutton();" action="/login" method="POST">
+    <div>
+      <p id="errormsg"></p>
+      <label>メールアドレス</label><br>
+      <input id="email-address" type="email" name="email-address"><br>
+      {% with errors = get_flashed_messages(category_filter=["ng_email"]) %}
+      {% if errors %}
+      <p><span>{{errors[0]}}</span></p>
+      {% endif %}
+      {% endwith %}
+    </div>
+    <div>
+      <p id="errorpass"></p>
+      <label>パスワード</label><br>
+      <input id="password" type="password" name="password"><br>
+      {% with errors = get_flashed_messages(category_filter=["ng_password"]) %}
+      {% if errors %}
+      <p><span>{{errors[0]}}</span></p>
+      {% endif %}
+      {% endwith %}
+    </div>
+    <input type="submit" id="button" value="ログイン">
+  </form>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/form.js') }}"></script>
+</body>

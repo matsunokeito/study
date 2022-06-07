@@ -8,7 +8,7 @@ from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = 'kensyu'
-app.permanent_session_lifetime = timedelta(minutes=3)
+app.permanent_session_lifetime = timedelta(minutes=30)
 
 
 def get_connection():
@@ -353,9 +353,6 @@ def update(user_id):
             if re.match(mail, form['email-address']) is None:
                 is_invalid = True
                 flash('メールアドレスを入力してください', 'ng_email')
-            if user_data is not None:
-                is_invalid = True
-                flash('このメールアドレスは登録されています', 'ng_email')
             if re.match(post, form['post-code']) is None:
                 is_invalid = True
                 flash('郵便番号を入力してください', 'ng_post')

@@ -84,85 +84,98 @@
 
 {% extends "base.html" %}
 {% block title %}
-    ユーザー登録
-    {% endblock %}
+ユーザー登録
+{% endblock %}
 {% block content %}
-<form action="/update/{{user['user_id']}}" method="post">
-  <label>名前</label><br>
-  <input type="text" name="first-name" value={{user['name']}} ><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_name"]) %}
-  {% if errors %}
+
+<body>
+  <form id="useredit" action="/update/{{user['user_id']}}" onsubmit="return pushbutton();" method="post">
+    <p id="errorname"></p>
+    <label>名前</label><br>
+    <input id="first-name" type="text" name="first-name" value={{user['name']}}><br>
+    {% with errors = get_flashed_messages(category_filter=["ng_name"]) %}
+    {% if errors %}
     {% for error in errors %}
-      <p><span>{{error}}</span></p>
+    <p><span>{{error}}</span></p>
     {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <p>性別</p>
-  <input id="radio-a" type="radio" name="gender" value="0" {%if user['gender'] == '男性'%}checked{%endif%}><label for="radio-a">男性</label><br>
-  <input id="radio-b" type="radio" name="gender" value="1" {%if user['gender'] == '女性'%}checked{%endif%}><label for="radio-b">女性</label><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_gender"]) %}
-  {% if errors %}
+    {% endif %}
+    {% endwith %}
+    <p>性別</p>
+    <input id="radio-a" type="radio" name="gender" value="0" {%if user['gender']=='男性' %}checked{%endif%}><label
+      for="radio-a">男性</label><br>
+    <input id="radio-b" type="radio" name="gender" value="1" {%if user['gender']=='女性' %}checked{%endif%}><label
+      for="radio-b">女性</label><br>
+    {% with errors = get_flashed_messages(category_filter=["ng_gender"]) %}
+    {% if errors %}
     {% for error in errors %}
-      <p><span>{{error}}</span></p>
+    <p><span>{{error}}</span></p>
     {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <label>生年月日</label><br>
-  <input type="date" name="birthday" value=><br>
-  <label>パスワード</label><br>
-  <input type="password" name="password" value={{user['password']}} ><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_password"]) %}
-  {% if errors %}
+    {% endif %}
+    {% endwith %}
+    <label>生年月日</label><br>
+    <input type="date" name="birthday" value=><br>
+    <p id="errorpass"></p>
+    <label>パスワード</label><br>
+    <input id="password" type="password" name="password" value={{user['password']}}><br>
+    {% with errors = get_flashed_messages(category_filter=["ng_password"]) %}
+    {% if errors %}
     {% for error in errors %}
-      <p><span>{{error}}</span></p>
+    <p><span>{{error}}</span></p>
     {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <label>メールアドレス</label><br>
-  <input type="email" name="email-address" value={{user['mail']}} ><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_email"]) %}
-  {% if errors %}
+    {% endif %}
+    {% endwith %}
+    <p id="errormsg"></p>
+    <label>メールアドレス</label><br>
+    <input id="email-address" type="email" name="email-address" value={{user['mail']}}><br>
+    {% with errors = get_flashed_messages(category_filter=["ng_email"]) %}
+    {% if errors %}
     {% for error in errors %}
-      <p><span>{{error}}</span></p>
+    <p><span>{{error}}</span></p>
     {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <label>郵便番号</label><br>
-  <input type="text" name="post-code" value={{user['yubin']}} ><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_post"]) %}
-  {% if errors %}
+    {% endif %}
+    {% endwith %}
+    <p id="errorpost"></p>
+    <label>郵便番号</label><br>
+    <input id="post-code" type="text" name="post-code" value={{user['yubin']}}><br>
+    {% with errors = get_flashed_messages(category_filter=["ng_post"]) %}
+    {% if errors %}
     {% for error in errors %}
-      <p><span>{{error}}</span></p>
+    <p><span>{{error}}</span></p>
     {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <select name="pref_name">
-    <option value="0">選択してください</option>
-    {%for todoufuken in todoufuken_list%}
-      <option value="{{todoufuken['ken_code']}}"{%if user['ken_code'] == todoufuken['ken_code'] %}selected{%endif%}>{{todoufuken['ken_name']}}</option>
+    {% endif %}
+    {% endwith %}
+    <select name="pref_name">
+      <option value="0">選択してください</option>
+      {%for todoufuken in todoufuken_list%}
+      <option value="{{todoufuken['ken_code']}}" {%if user['ken_code']==todoufuken['ken_code'] %}selected{%endif%}>
+        {{todoufuken['ken_name']}}</option>
+      {%endfor%}
+    </select><br>
+    {% with errors = get_flashed_messages(category_filter=["ng_todoufuken"]) %}
+    {% if errors %}
+    {% for error in errors %}
+    <p><span>{{error}}</span></p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <p id="erroraddress"></p>
+    <label>住所</label><br>
+    <input id="address" type="text" name="address" value={{user['jyusyo']}}><br>
+    {% with errors = get_flashed_messages(category_filter=["ng_address"]) %}
+    {% if errors %}
+    {% for error in errors %}
+    <p><span>{{error}}</span></p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <p>資格</p>
+    {%for shikaku in shikaku_list%}
+    <input id="check" type="checkbox" name="shikaku" value="{{shikaku['shikaku_code']}}" {%if shikaku['shikaku_code'] in
+      shikaku_code_list%}checked{%endif%}><label for="check">
+      {{shikaku['shikaku_name']}}</label><br>
     {%endfor%}
-  </select><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_todoufuken"]) %}
-  {% if errors %}
-    {% for error in errors %}
-      <p><span>{{error}}</span></p>
-    {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <label>住所</label><br>
-  <input type="text" name="address" value={{user['jyusyo']}}><br>
-  {% with errors = get_flashed_messages(category_filter=["ng_address"]) %}
-  {% if errors %}
-    {% for error in errors %}
-      <p><span>{{error}}</span></p>
-    {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <p>資格</p>
-  {%for shikaku in shikaku_list%}
-  <input id="check" type="checkbox" name="shikaku" value="{{shikaku['shikaku_code']}}"{%if shikaku['shikaku_code'] in shikaku_code_list%}checked{%endif%}><label for="check">
-    {{shikaku['shikaku_name']}}</label><br>
-  {%endfor%}
-  <input type="submit" value="更新">    
-</form>
-{% endblock %} 
+    <input type="submit" id="button" value="更新">
+  </form>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/useredit.js') }}"></script>
+</body>
+{% endblock %}
